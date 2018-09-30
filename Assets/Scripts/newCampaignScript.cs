@@ -22,12 +22,13 @@ public class newCampaignScript : MonoBehaviour {
     public Texture scoundrelSprite;
     public Texture cragheartSprite;
     public Texture mindthiefSprite;
+    public GameObject GameController;
     List<string> allClasses = new List<string>() { "Select a class", "Brute", "Tinkerer", "Spellweaver", "Scoundrel", "Cragheart", "Mindtheif" };
     List<string> usedClasses = new List<string>() { };
     List<string> lifeGoals = new List<string>() { "Seeker of Xorn", "Merchant Class", "Greed is Good", "Finding the Cure", "A Study of Anatomy", "Lawbringer", "Pounds of Flesh", "Trophy Hunt",
                                                     "Eternal Wanderer", "Battle Legend", "Implement of Light", "Take Back the Trees", "The Thin Places", "Aberrant Slayer", "Fearless Stand",
                                                     "Piety in All Things", "Vengeance", "Zealot of the Blood God", "Goliath Toppler", "The Fall of Man", "Augmented Abilities", "Elemental Samples",
-                                                    "A Helping Hand", "The Perfect Poison"}; //24 total, 0 to 23
+                                                    "A Helping Hand", "The Perfect Poison"}; //24 total
     private bool charFinished = true;
     private bool partyFinished = false;
     private RawImage charSprite;
@@ -152,32 +153,32 @@ public class newCampaignScript : MonoBehaviour {
     {
         Campaign thisCampaign = new Campaign();
         Character firstCharacter = new Character();
-        firstCharacter.newChar(char1.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char1.GetComponentInChildren<Text>().text, char1.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+        firstCharacter.newChar(char1.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char1.GetComponentInChildren<Text>().text, char1.GetComponentInChildren<RawImage>().texture, char1.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
 
         if (char4.activeSelf)
         {
             Character secondCharacter = new Character();
-            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<RawImage>().texture, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
             Character thirdCharacter = new Character();
-            thirdCharacter.newChar(char3.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char3.GetComponentInChildren<Text>().text, char3.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            thirdCharacter.newChar(char3.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char3.GetComponentInChildren<Text>().text, char3.GetComponentInChildren<RawImage>().texture, char3.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
             Character fourthCharacter = new Character();
-            fourthCharacter.newChar(char4.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char4.GetComponentInChildren<Text>().text, char4.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            fourthCharacter.newChar(char4.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char4.GetComponentInChildren<Text>().text, char4.GetComponentInChildren<RawImage>().texture, char4.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
 
             thisCampaign.newCampaign(campaignName.GetComponentsInChildren<Text>()[1].text, firstCharacter, secondCharacter, thirdCharacter, fourthCharacter);
         }
         else if (char3.activeSelf)
         {
             Character secondCharacter = new Character();
-            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<RawImage>().texture, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
             Character thirdCharacter = new Character();
-            thirdCharacter.newChar(char3.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char3.GetComponentInChildren<Text>().text, char3.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            thirdCharacter.newChar(char3.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char3.GetComponentInChildren<Text>().text, char3.GetComponentInChildren<RawImage>().texture, char3.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
 
             thisCampaign.newCampaign(campaignName.GetComponentsInChildren<Text>()[1].text, firstCharacter, secondCharacter, thirdCharacter);
         }
         else if (char2.activeSelf)
         {
             Character secondCharacter = new Character();
-            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
+            secondCharacter.newChar(char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char2.GetComponentInChildren<Text>().text, char2.GetComponentInChildren<RawImage>().texture, char2.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
 
             thisCampaign.newCampaign(campaignName.GetComponentsInChildren<Text>()[1].text, firstCharacter, secondCharacter);
         }
@@ -189,9 +190,11 @@ public class newCampaignScript : MonoBehaviour {
         saveGame.SaveGame(thisCampaign, party);
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/GloomhavenSave.dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/Gloomhaven"+campaignName.GetComponentsInChildren<Text>()[1].text+".dat");
         bf.Serialize(file, saveGame);
         file.Close();
+
+        SaveController.SaveInfo.CampaignSave = saveGame;
 
         SceneManager.LoadScene(3);
     }

@@ -7,6 +7,7 @@ public class Character{
 
     private string Name;
     private string Class;
+    private Texture Avatar;
     private int Level;
     private int Xp;
     private int Gold;
@@ -16,10 +17,11 @@ public class Character{
     List<string> Perks;
     List<string> Cards;
 
-    public void newChar(string name, string Class, string lifeGoal)
+    public void newChar(string name, string Class, Texture avatar, string lifeGoal)
     {
         Name = name;
         this.Class = Class;
+        Avatar = avatar;
         LifeGoal = lifeGoal;
         Level = 1;
         Xp = 0;
@@ -70,6 +72,11 @@ public class Character{
     public string GetClass()
     {
         return Class;
+    }
+
+    public Texture GetSprite()
+    {
+        return Avatar;
     }
 
     public string GetLifeGoal()
