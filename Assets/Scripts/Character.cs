@@ -1,31 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public class Character{
 
     private string Name;
     private string Class;
-    private Texture Avatar;
     private int Level;
     private int Xp;
     private int Gold;
+    private bool Donated;
     private int Checks;
     private string LifeGoal;
     List<string> Items;
     List<string> Perks;
     List<string> Cards;
 
-    public void newChar(string name, string Class, Texture avatar, string lifeGoal)
+    public void newChar(string name, string Class, string lifeGoal)
     {
         Name = name;
         this.Class = Class;
-        Avatar = avatar;
         LifeGoal = lifeGoal;
         Level = 1;
         Xp = 0;
         Gold = 30;
+        Donated = false;
         Checks = 0;
         Items = new List<string>() { };
         Perks = new List<string>() { };
@@ -45,9 +47,9 @@ public class Character{
     {
         Xp = xp;
     }
-    public void setGold(int gold)
+    public void changeGold(int gold)
     {
-        Gold = gold;
+        Gold += gold;
     }
 
     public void setChecks(int checks)
@@ -74,15 +76,29 @@ public class Character{
         return Class;
     }
 
-    public Texture GetSprite()
-    {
-        return Avatar;
-    }
-
     public string GetLifeGoal()
     {
         return LifeGoal;
     }
 
+    public int GetGold()
+    {
+        return Gold;
+    }
+
+    public List<string> getItems()
+    {
+        return Items;
+    }
+
+    public bool HaveDonated()
+    {
+        return Donated;
+    }
+
+    public void Donate()
+    {
+        Donated = true;
+    }
 
 }

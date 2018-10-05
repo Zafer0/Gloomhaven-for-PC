@@ -10,9 +10,10 @@ public class Campaign{
     private List<Character> Characters;
     private List<string> lifeGoals;
     private List<int> CityEvents;
+    private bool DoneCityEvent;
     private List<int> RoadEvents;
     private int DonatedGold;
-    private List<int> Shop; //reference gloomhaven; Boots of Striding are 0. values are inventory left.
+    private List<ItemStock> Shop; //reference gloomhaven; Boots of Striding are 0. values are inventory left.
     private int Prosperity;
     private List<int> Scenarios; //reference gloomhaven; follows scenario book exactly.
 
@@ -32,13 +33,7 @@ public class Campaign{
         lifeGoals.Remove(first.GetLifeGoal());
         lifeGoals.Remove(second.GetLifeGoal());
 
-        CityEvents = createEventDeck();
-        RoadEvents = createEventDeck();
-        DonatedGold = 0;
-        Shop = new List<int>() { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4 };
-        Prosperity = 0;
-        Scenarios = new List<int>() { 1 };
-
+        FinishCampaignCreation();
     }
 
     public void newCampaign(string name, Character first, Character second, Character third)
@@ -59,12 +54,7 @@ public class Campaign{
         lifeGoals.Remove(second.GetLifeGoal());
         lifeGoals.Remove(third.GetLifeGoal());
 
-        CityEvents = createEventDeck();
-        RoadEvents = createEventDeck();
-        DonatedGold = 0;
-        Shop = new List<int>() { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4 };
-        Prosperity = 0;
-        Scenarios = new List<int>() { 1 };
+        FinishCampaignCreation();
     }
 
     public void newCampaign(string name, Character first, Character second, Character third, Character fourth)
@@ -87,12 +77,36 @@ public class Campaign{
         lifeGoals.Remove(third.GetLifeGoal());
         lifeGoals.Remove(fourth.GetLifeGoal());
 
+        FinishCampaignCreation();
+    }
+
+    public void FinishCampaignCreation()
+    {
+
         CityEvents = createEventDeck();
+        DoneCityEvent = false;
         RoadEvents = createEventDeck();
         DonatedGold = 0;
-        Shop = new List<int>() { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4 };
         Prosperity = 0;
         Scenarios = new List<int>() { 1 };
+        Shop = new List<ItemStock>
+        {
+            new ItemStock{ Stock = 2, Name = "Boots of Striding", Price = 20},
+            new ItemStock{ Stock = 2, Name = "Winged Shoes", Price = 20},
+            new ItemStock{ Stock = 2, Name = "Hide Armor", Price = 10},
+            new ItemStock{ Stock = 2, Name = "Leather Armor", Price = 20},
+            new ItemStock{ Stock = 2, Name = "Cloak of Invisibility", Price = 20},
+            new ItemStock{ Stock = 2, Name = "Eagle-Eye Goggles", Price = 30},
+            new ItemStock{ Stock = 2, Name = "Iron Helmet", Price = 10},
+            new ItemStock{ Stock = 2, Name = "Heater Shield", Price = 20},
+            new ItemStock{ Stock = 2, Name = "Piercing Bow", Price = 30},
+            new ItemStock{ Stock = 2, Name = "War Hammer", Price = 30},
+            new ItemStock{ Stock = 2, Name = "Poison Dagger", Price = 20},
+            new ItemStock{ Stock = 4, Name = "Minor Healing Potion", Price = 10},
+            new ItemStock{ Stock = 4, Name = "Minor Stamina Potion", Price = 10},
+            new ItemStock{ Stock = 4, Name = "Minor Power Potion", Price = 10},
+        };
+
     }
 
     public string GetName()
@@ -103,6 +117,62 @@ public class Campaign{
     public List<Character> GetCharacters()
     {
         return Characters;
+    }
+
+    public List<ItemStock> GetShop()
+    {
+        return Shop;
+    }
+
+    public int getPriceOfItem(string item)
+    {
+        bool found = false;
+        int i = -1;
+        while (!found && i < Shop.Count)
+        {
+            i++;
+            if (Shop[i].Name.Equals(item))
+            {
+                found = true;
+            }
+        }
+
+        return Shop[i].Price;
+    }
+
+    public int GetDonatedGold()
+    {
+        return DonatedGold;
+    }
+
+    public bool HaveDoneCityEvent()
+    {
+        return DoneCityEvent;
+    }
+
+    public void DoCityEvent()
+    {
+        DoneCityEvent = true;
+    }
+
+    public void DonateGold()
+    {
+        DonatedGold += 10;
+    }
+
+    public void RemoveItemInShop(string item)
+    {
+        bool found = false;
+        int i = -1;
+        while(!found && i < Shop.Count)
+        {
+            i++;
+            if(Shop[i].Name.Equals(item))
+            {
+                found = true;
+                Shop[i].Stock -= 1;
+            }
+        }
     }
 
     private List<int> createEventDeck()
@@ -119,6 +189,14 @@ public class Campaign{
         }
 
         return randomizedDeck;
+    }
+
+    [System.Serializable]
+    public class ItemStock
+    {
+        public int Stock { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
     }
 
 }

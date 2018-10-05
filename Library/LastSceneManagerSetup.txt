@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/New Campaign.unity
+- path: Assets/Scenes/City Event.unity
   isLoaded: 1
   isActive: 1
