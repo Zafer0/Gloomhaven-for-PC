@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SaveController : MonoBehaviour {
 
+    //persistant data that's used throughout the game.
+
     public static SaveController SaveInfo;
 
     public SaveObject CampaignSave;

@@ -17,7 +17,7 @@ public class Campaign{
     private int Prosperity;
     private List<int> Scenarios; //reference gloomhaven; follows scenario book exactly.
 
-    public void newCampaign(string name, Character first, Character second)
+    public void newCampaign(string name, Character first, Character second) //create new campaign for 2 players
     {
         Name = name;
 
@@ -36,7 +36,7 @@ public class Campaign{
         FinishCampaignCreation();
     }
 
-    public void newCampaign(string name, Character first, Character second, Character third)
+    public void newCampaign(string name, Character first, Character second, Character third) //create new campaign for 3 players
     {
         Name = name;
 
@@ -57,7 +57,7 @@ public class Campaign{
         FinishCampaignCreation();
     }
 
-    public void newCampaign(string name, Character first, Character second, Character third, Character fourth)
+    public void newCampaign(string name, Character first, Character second, Character third, Character fourth) //create new campaign for 4 players
     {
         Name = name;
 
@@ -80,7 +80,7 @@ public class Campaign{
         FinishCampaignCreation();
     }
 
-    public void FinishCampaignCreation()
+    public void FinishCampaignCreation() //finish campaign creation that is player independant
     {
 
         CityEvents = createEventDeck();
@@ -108,6 +108,8 @@ public class Campaign{
         };
 
     }
+
+    // start get and set functions
 
     public string GetName()
     {
@@ -192,7 +194,7 @@ public class Campaign{
     }
 
     [System.Serializable]
-    public class ItemStock
+    public class ItemStock //temp object as placeholder for item class
     {
         public int Stock { get; set; }
         public string Name { get; set; }

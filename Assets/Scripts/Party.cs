@@ -17,6 +17,8 @@ public class Party{
         Reputation = 0;
     }
 
+    //get/set functions
+
     public void SetLocation(string location)
     {
         Location = location;

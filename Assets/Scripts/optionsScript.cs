@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class optionsScript : MonoBehaviour {
 
+    //can add more options when game is actually a game and there's actual game settings
+
     List<string> resolutions = new List<string>() { "", "1024×576", "1152×648", "1280×720", "1366×768", "1600×900", "1920×1080" };
     public Dropdown dropdown;
 

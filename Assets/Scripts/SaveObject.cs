@@ -6,6 +6,8 @@ using System;
 [Serializable]
 public class SaveObject{
 
+    //actual object that's used by controller, persistant dta used throughut the game.
+
     Campaign Campaign;
     Party Party;
 

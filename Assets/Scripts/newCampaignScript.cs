@@ -33,8 +33,9 @@ public class newCampaignScript : MonoBehaviour {
         dropdown.AddOptions(allClasses);
     }
 
-    private void Update()
+    private void Update() //checks if current party can start campaign
     {
+        //if all characters are finished and party is 2+ characters, party is finished
         if(!campaignName.GetComponentsInChildren<Text>()[1].text.Equals("") && !partyName.GetComponentsInChildren<Text>()[1].text.Equals(""))
         {
             if(charFinished && char4.activeSelf && !char4.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text.Equals("") && !char3.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text.Equals("") && !char2.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text.Equals("") && !char1.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text.Equals(""))
@@ -57,16 +58,18 @@ public class newCampaignScript : MonoBehaviour {
             partyFinished = false;
         }
 
+        //can't make a new character while one is still being made
         startButton.interactable = partyFinished;
         dropdown.interactable = charFinished;
     }
 
-    public void Dropdown_IndexChanged(int index)
+    public void Dropdown_IndexChanged(int index) //initialize new characters based off what was selected
     {
-        if (index != 0 && usedClasses.Count <= 3)
+        if (index != 0 && usedClasses.Count <= 3) //can't make more than 4 characters
         {
-            if(!usedClasses.Contains(allClasses[index]))
+            if(!usedClasses.Contains(allClasses[index])) //can't select a class already selected
             {
+                //set charFinished to false, get 2 unused life goals, and initialize the character panal
                 charFinished = false;
                 usedClasses.Add(allClasses[index]);
                 string lifeGoal1 = lifeGoals[Random.Range(0,lifeGoals.Count-1)];
@@ -103,7 +106,7 @@ public class newCampaignScript : MonoBehaviour {
                     char4.SetActive(true);
                 }
 
-                switch (index)
+                switch (index) //load character sprite
                 {
                     case 1:
                         charSprite.texture = (Texture)Resources.Load("Brute");
@@ -144,6 +147,7 @@ public class newCampaignScript : MonoBehaviour {
 
     public void startGame()
     {
+        //initialize persistant data for game by creating all necessary objects and saving them
         Campaign thisCampaign = new Campaign();
         Character firstCharacter = new Character();
         firstCharacter.newChar(char1.GetComponentInChildren<InputField>().GetComponentsInChildren<Text>()[1].text, char1.GetComponentInChildren<Text>().text, char1.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text);
@@ -183,16 +187,16 @@ public class newCampaignScript : MonoBehaviour {
         saveGame.SaveGame(thisCampaign, party);
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/Gloomhaven.dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/Gloomhaven.dat"); //for full game, save data is based off of campaign name (or dynamic and changeable)
         bf.Serialize(file, saveGame);
         file.Close();
 
-        SaveController.SaveInfo.CampaignSave = saveGame;
+        SaveController.SaveInfo.CampaignSave = saveGame; //the persistant data
 
         SceneManager.LoadScene(3);
     }
 
-    public void selectLifeGoal1()
+    public void selectLifeGoal1() //selected left life goal
     {
         if (char4.activeSelf)
         {
@@ -216,7 +220,7 @@ public class newCampaignScript : MonoBehaviour {
         lifeGoals.Add(lifeGoalButtons[1].GetComponentInChildren<Text>().text);
     }
 
-    public void selectLifeGoal2()
+    public void selectLifeGoal2() //selected right life goal
     {
         if (char4.activeSelf)
         {

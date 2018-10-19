@@ -19,7 +19,7 @@ public class Character{
     List<string> Perks;
     List<string> Cards;
 
-    public void newChar(string name, string Class, string lifeGoal)
+    public void newChar(string name, string Class, string lifeGoal) //lvl 1 new character
     {
         Name = name;
         this.Class = Class;
@@ -34,10 +34,12 @@ public class Character{
         Cards = new List<string>() { };
     }
 
-    public void newChar(string name, string Class, int level, int gold, string perks, string cards) //if starting from lvl 2+
+    public void newChar(string name, string Class, int level, int gold, string perks, string cards) //lvl 2+ new character
     {
-
+        //TODO: FINISH
     }
+
+    //start get and set functions
 
     public void setLevel(int level)
     {

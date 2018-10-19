@@ -20,6 +20,7 @@ public class Church : MonoBehaviour {
         GoldText.text = "";
         DonatedText.text = "";
 
+        //Load character sprites dpenedant on player count
         if (SaveController.SaveInfo.GetCampaign().GetCharacters().Count == 2)
         {
             char1.gameObject.SetActive(true);
@@ -52,6 +53,7 @@ public class Church : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Keep text updated to whatever player is active
         GoldText.text = ""+ActiveCharacter.GetGold();
         DonatedText.text = ""+SaveController.SaveInfo.GetCampaign().GetDonatedGold();
         DonateButton.interactable = !ActiveCharacter.HaveDonated();

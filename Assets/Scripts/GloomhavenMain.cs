@@ -16,10 +16,11 @@ public class GloomhavenMain : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //heading text
         gameObject.GetComponentsInChildren<Text>()[0].text = SaveController.SaveInfo.GetCampaign().GetName();
         gameObject.GetComponentsInChildren<Text>()[1].text = SaveController.SaveInfo.GetParty().GetName();
 
-        if(SaveController.SaveInfo.GetCampaign().GetCharacters().Count == 2)
+        if(SaveController.SaveInfo.GetCampaign().GetCharacters().Count == 2) //load character sprites
         {
             char1.gameObject.SetActive(true);
             char1.image.sprite = Resources.Load<Sprite>(SaveController.SaveInfo.GetCampaign().GetCharacters()[0].GetClass());
@@ -47,7 +48,7 @@ public class GloomhavenMain : MonoBehaviour {
             char4.image.sprite = Resources.Load<Sprite>(SaveController.SaveInfo.GetCampaign().GetCharacters()[3].GetClass());
         }
 
-        if(SaveController.SaveInfo.GetCampaign().HaveDoneCityEvent())
+        if(SaveController.SaveInfo.GetCampaign().HaveDoneCityEvent()) //enable/disable actions
         {
             CityEvent.interactable = false;
         }
@@ -56,6 +57,8 @@ public class GloomhavenMain : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
+
+    //scene changes
 
     public void GoToShop()
     {

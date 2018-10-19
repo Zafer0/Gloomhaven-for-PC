@@ -15,6 +15,8 @@ public class Item{
         Ability = ability;
     }
 	
+    //start get/set functions
+
 	public string GetName()
     {
         return Name;

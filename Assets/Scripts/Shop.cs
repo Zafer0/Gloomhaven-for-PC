@@ -19,6 +19,8 @@ public class Shop : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //Initialize blank text, sprites, and item array for reference
+
         goldText.text = "";
         itemsText.text = "";
         if (SaveController.SaveInfo.GetCampaign().GetCharacters().Count == 2)
@@ -54,6 +56,8 @@ public class Shop : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //keep active char text relevant, and check if item still has stock
+
         goldText.text = "" + shoppingCharacter.GetGold();
         itemsString = "";
         for (int i = 0; i < shoppingCharacter.getItems().Count; i++)
@@ -62,20 +66,18 @@ public class Shop : MonoBehaviour {
         }
         itemsText.text = itemsString;
 
-        for(int i = 0; i < Items.Length-1; i++)
+        for (int i = 0; i < Items.Length - 1; i++)
         {
-            if(SaveController.SaveInfo.GetCampaign().GetShop()[i].Stock <= 0)
+            if (SaveController.SaveInfo.GetCampaign().GetShop()[i].Stock <= 0)
             {
                 Items[i].interactable = false;
             }
         }
-
-        
-		
 	}
 
     public void PurchaseItem()
     {
+        //check item data based off what was clicked, and do appropriate actions, ie remove item from shop, add to character, change gold amounts
         string itemName = EventSystem.current.currentSelectedGameObject.name;
         if (shoppingCharacter.GetGold() >= SaveController.SaveInfo.GetCampaign().getPriceOfItem(itemName))
         {
